@@ -59,13 +59,15 @@ class _OrderScreenState extends State<OrderScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
+                StyledButton(
                   onPressed: _increaseQuantity,
-                  child: const Text('Add'),
+                  text: 'Add',
+                  backgroundColor: Colors.red,
                 ),
-                ElevatedButton(
+                StyledButton(
                   onPressed: _decreaseQuantity,
-                  child: const Text('Remove'),
+                  text: 'Remove',
+                  backgroundColor: Colors.blue,
                 ),
               ],
             ),
@@ -85,5 +87,30 @@ class OrderItemDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('$quantity $itemType sandwich(es): ${'🥪' * quantity}');
+  }
+}
+
+class StyledButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+  final Color backgroundColor;
+
+  const StyledButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    required this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        foregroundColor: Colors.white,
+      ),
+      child: Text(text),
+    );
   }
 }
