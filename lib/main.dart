@@ -128,6 +128,11 @@ class _OrderScreenState extends State<OrderScreen> {
               breadType: _selectedBreadType,
               orderNote: noteForDisplay,
             ),
+            const SizedBox(height: 8),
+            Text(
+              'Total price: £${totalPrice.toStringAsFixed(2)}',
+              style: normalText,
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
