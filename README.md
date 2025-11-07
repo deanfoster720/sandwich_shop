@@ -1,76 +1,102 @@
-# Sandwich Shop
+# Sandwich Shop Flutter App
 
-This is a simple Flutter app that allows users to order sandwiches.
-The app is built using Flutter and Dart, and it is designed primarily to be run in a web
-browser.
+A small Flutter demo app that simulates ordering sandwiches. It's a teaching/example project showing simple state management, basic widgets, and widget + unit tests.
 
-## Install the essential tools
+## What this app does
 
-1. **Terminal**:
+- Presents a simple sandwich counter UI where a user can:
+  - Toggle between six-inch and footlong sandwiches.
+  - Select a bread type (white, wheat, wholemeal) via a dropdown.
+  - Add a short order note via a `TextField`.
+  - Increment and decrement the quantity of sandwiches with Add / Remove buttons (bounded by min 0 and a configurable max).
+- The `OrderItemDisplay` summarizes the current order (quantity, bread, type) and displays a sandwich emoji per item.
 
-    - **macOS** – use the built-in Terminal app by pressing **⌘ + Space**, typing **Terminal**, and pressing **Return**.
-    - **Windows** – open the start menu using the **Windows** key. Then enter **cmd** to open the **Command Prompt**. Alternatively, you can use **Windows PowerShell** or **Windows Terminal**.
+## Project structure (important files)
 
-2. **Git** – verify that you have `git` installed by entering `git --version`, in the terminal.
-    If this is missing, download the installer from [Git's official site](https://git-scm.com/downloads?utm_source=chatgpt.com).
+- `lib/main.dart` — main application entry. Contains the following key pieces:
+  - `App` — top-level `MaterialApp` that uses `OrderScreen` as `home`.
+  - `OrderScreen` — `StatefulWidget` that composes the UI and holds state such as selected bread, sandwich type, notes, and an `OrderRepository` instance for quantity logic.
+  - `StyledButton` — a small `StatelessWidget` wrapper around `ElevatedButton` used for the Add/Remove buttons.
+  - `OrderItemDisplay` — `StatelessWidget` that renders the order summary and the note.
 
-3. **Package managers**:
+- `lib/views/app_styles.dart` — central place for shared `TextStyle` constants used across widgets:
+  - `normalText` and `heading1` style constants.
 
-    - **Homebrew** (macOS) – verify that you have `brew` installed with `brew --version`; if missing, follow the instructions on the [Homebrew installation page](https://brew.sh/).
-    - **Chocolatey** (Windows) – verify that you have `choco` installed with `choco --version`; if missing, follow the instructions on the [Chocolatey installation page](https://chocolatey.org/install).
+- `lib/repositories/order_repository.dart` — simple stateful repository encapsulating quantity logic:
+  - `OrderRepository` holds `_quantity` and `maxQuantity`.
+  - Provides `increment()`, `decrement()`, and boolean getters `canIncrement`, `canDecrement`, and `quantity`.
 
-4. **Flutter SDK** – verify that you have `flutter` installed and it is working with `flutter doctor`; if missing, install it using your package manager:
+- `test/widget_test.dart` — widget tests that pump the whole `App` and assert UI behaviors (title, initial quantity, Add/Remove behavior, dropdown bread selection, text field updates, and `OrderItemDisplay` widget rendering).
 
-    - **macOS**: `brew install --cask flutter`
-    - **Windows**: `choco install flutter`
+- `test/repositories/order_repository_test.dart` — unit tests for the repository logic (initial quantity, increment/decrement bounds).
 
-5. **Visual Studio Code** – verify that you have `code` installed with `code --version`; if missing, use your package manager to install it:
+## Important implementation notes
 
-    - **macOS**: `brew install --cask visual-studio-code`
-    - **Windows**: `choco install vscode`
+- Each Dart file imports the packages it uses directly. For example, `lib/views/app_styles.dart` imports `package:flutter/material.dart` so the style constants can reference Flutter types. `lib/main.dart` also imports `package:flutter/material.dart` because it directly uses `MaterialApp`, `Scaffold`, and other Material widgets.
 
-## Get the code
+- `BreadType` is an `enum` with values `white`, `wheat`, and `wholemeal`. The app uses `breadType.name` (lowercase) when rendering text. Tests are written to match this lowercase output.
 
-### If this is your first time working on this project
+## How to run the app (development)
 
-Enter the following commands in your terminal to clone the repository and
-open it in Visual Studio Code.
-You may want to change directory (`cd`) to the directory where you want to clone the
-repository first.
+Prerequisites:
 
-```bash
-git clone --branch 3 https://github.com/manighahrmani/sandwich_shop
-cd sandwich_shop
-code .
-```
+- Flutter SDK installed (stable channel recommended)
+- Platform toolchains set up for your target (Android/iOS/web/desktop)
 
-### If you have already cloned the repository
-
-Enter the following commands in your terminal to switch to the correct branch.
-Remember to `cd` to the directory where you cloned the repository first.
+From the project root (`sandwich_shop/`):
 
 ```bash
-git fetch origin
-git checkout 3
-```
-
-## Run the app
-
-Open the integrated terminal in Visual Studio Code by first opening the Command
-Palette with **⌘ + Shift + P** (macOS) or **Ctrl + Shift + P** (Windows) and
-typing **Terminal: Create New Terminal** then pressing **Enter**.
-
-In the terminal, run the following commands to install the dependencies and run
-the app in your web browser:
-
-```bash
+# fetch dependencies
 flutter pub get
+
+# run on the default connected device / emulator
 flutter run
 ```
 
-## Get support
+To run on a specific device (e.g., Windows, chrome, a specific android emulator) use `flutter devices` to list devices and `flutter run -d <deviceId>`.
 
-Use [the dedicated Discord channel](https://discord.com/channels/760155974467059762/1370633732779933806)
-to ask your questions and get help from the community.
-Please provide as much context as possible, including the error messages you are seeing and
-screenshots (you can open Discord in your web browser).
+## Running tests
+
+Run the full test suite (both widget and unit tests):
+
+```bash
+flutter test
+```
+
+Notes on the tests included:
+
+- `test/repositories/order_repository_test.dart` validates the `OrderRepository` logic (bounds and basic operations).
+- `test/widget_test.dart` contains widget tests that pump the `App` and verify UI strings and interactions. The tests assume the app shows text like `0 white footlong sandwich(es): ` by default (bread uses the enum name and the sandwich type is `footlong` by default).
+
+If you change the string formatting in `OrderItemDisplay` (for example, capitalizing bread type or changing the suffix text), update the tests accordingly.
+
+## Contract / Inputs & Outputs
+
+- Input: user interactions (toggle switch, dropdown selection, text entry, Add/Remove button taps).
+- Output: UI updates showing quantity, repeated sandwich emoji for each item, and the note text.
+- Error modes: none complex — attempts to decrement below 0 or increment above `maxQuantity` are ignored.
+
+## Edge cases handled
+
+- Trying to decrement when quantity is 0 does nothing.
+- Trying to increment when quantity equals `maxQuantity` does nothing.
+- Empty notes show a default text `No notes added.` in the UI.
+
+## Extension ideas / next steps
+
+- Persist orders locally (e.g., with Hive or SharedPreferences) so the quantity and notes survive app restarts.
+- Add input validation / longer notes UI.
+- Improve dropdown accessibility and visual styling.
+- Add more tests that simulate platform-specific behavior or accessibility checks.
+
+## How I verified this README
+
+- I inspected the key files in `lib/` and `test/` to describe the behavior and list the files. The `OrderRepository` and tests confirm expected behavior around quantity bounds. The widget tests show the text format used by `OrderItemDisplay`.
+
+## Contact / attribution
+
+This README was generated to match the current project layout in this repository. Update the sections above if you refactor file names, change UI strings, or add new features.
+
+---
+
+Happy hacking! 🍞🥪
