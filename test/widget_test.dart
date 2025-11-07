@@ -83,6 +83,22 @@ void main() {
     });
   });
 
+  // Activity 2
+  testWidgets('toggles sandwich type between six-inch and footlong',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const App());
+
+    expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
+
+    await tester.tap(find.byType(Switch));
+    await tester.pump();
+    expect(find.text('0 white six-inch sandwich(es): '), findsOneWidget);
+
+    await tester.tap(find.byType(Switch));
+    await tester.pump();
+    expect(find.text('0 white footlong sandwich(es): '), findsOneWidget);
+  });
+
   group('StyledButton', () {
     testWidgets('renders with icon and label', (WidgetTester tester) async {
       const testButton = StyledButton(
