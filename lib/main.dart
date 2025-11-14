@@ -170,6 +170,13 @@ class _OrderScreenState extends State<OrderScreen> {
     return null;
   }
 
+  VoidCallback? _getIncreaseCallback() {
+    if (_quantity < widget.maxQuantity) {
+      return _increaseQuantity;
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -244,7 +251,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   ),
                   Text('$_quantity', style: heading2),
                   IconButton(
-                    onPressed: _increaseQuantity,
+                    onPressed: _getIncreaseCallback(),
                     icon: const Icon(Icons.add),
                   ),
                 ],

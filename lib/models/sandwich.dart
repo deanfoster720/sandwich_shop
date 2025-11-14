@@ -32,13 +32,23 @@ class Sandwich {
   }
 
   String get image {
-    String typeString = type.name;
-    String sizeString = '';
-    if (isFootlong) {
-      sizeString = 'footlong';
-    } else {
-      sizeString = 'six_inch';
+    final String baseName;
+    switch (type) {
+      case SandwichType.veggieDelight:
+        baseName = 'veggieDelight';
+        break;
+      case SandwichType.chickenTeriyaki:
+        baseName = 'chickenTeriyaki';
+        break;
+      case SandwichType.tunaMelt:
+        baseName = 'tunaMelt';
+        break;
+      case SandwichType.meatballMarinara:
+        baseName = 'meatballMarinara';
+        break;
     }
-    return 'assets/images/${typeString}_$sizeString.png';
+
+    final String sizeSegment = isFootlong ? 'footlong' : 'six_inch';
+    return 'assets/images/${baseName}_$sizeSegment.png';
   }
 }
