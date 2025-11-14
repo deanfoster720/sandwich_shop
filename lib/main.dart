@@ -50,7 +50,7 @@ class _OrderScreenState extends State<OrderScreen> {
     final double totalPrice = _cart.totalPrice;
     final String formattedTotal = totalPrice.toStringAsFixed(2);
 
-    return 'Cart: $itemCount $itemLabel · Total: ${String.fromCharCode(36)}$formattedTotal';
+    return 'Cart: $itemCount $itemLabel · Total: £$formattedTotal';
   }
 
   @override
