@@ -51,4 +51,25 @@ void main() {
     // Check that the displayed quantity text is maxQuantity, not higher
     expect(find.text('$maxQuantity'), findsOneWidget);
   });
+
+  testWidgets('Displays confirmation message when sandwich is added',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: OrderScreen(maxQuantity: 5),
+      ),
+    );
+
+    const String expectedMessage =
+        'Added 1 footlong Veggie Delight sandwich(es) on white bread to cart';
+
+    expect(find.text(expectedMessage), findsNothing);
+
+    final Finder addButtonFinder =
+        find.widgetWithText(ElevatedButton, 'Add to Cart');
+    await tester.tap(addButtonFinder);
+    await tester.pumpAndSettle();
+
+    expect(find.text(expectedMessage), findsOneWidget);
+  });
 }
