@@ -144,7 +144,10 @@ class _OrderScreenState extends State<OrderScreen> {
 
   void _increaseQuantity() {
     setState(() {
-      _quantity++;
+      // enforce the maxQuantity limit
+      if (_quantity < widget.maxQuantity) {
+        _quantity++;
+      }
     });
   }
 
@@ -157,6 +160,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   VoidCallback? _getDecreaseCallback() {
+    // only enabled if quantity is > 0
     if (_quantity > 0) {
       return _decreaseQuantity;
     }
