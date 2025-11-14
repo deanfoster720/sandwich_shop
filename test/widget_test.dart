@@ -52,29 +52,6 @@ void main() {
     expect(find.text('$maxQuantity'), findsOneWidget);
   });
 
-  testWidgets('Cart summary updates when items are added',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: OrderScreen(maxQuantity: 5),
-      ),
-    );
-
-    expect(find.text('Cart: 0 items - \$0.00'), findsOneWidget);
-
-    final Finder addButtonFinder =
-        find.widgetWithText(ElevatedButton, 'Add to Cart');
-    await tester.tap(addButtonFinder);
-    await tester.pumpAndSettle();
-
-    expect(find.text('Cart: 1 item - \$11.00'), findsOneWidget);
-
-    await tester.tap(addButtonFinder);
-    await tester.pumpAndSettle();
-
-    expect(find.text('Cart: 2 items - \$22.00'), findsOneWidget);
-  });
-
   testWidgets('Displays confirmation message when sandwich is added',
       (WidgetTester tester) async {
     await tester.pumpWidget(

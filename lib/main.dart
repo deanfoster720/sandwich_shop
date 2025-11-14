@@ -40,13 +40,6 @@ class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 1;
   String? _confirmationMessage;
 
-  String get _cartSummaryText {
-    final int itemCount = _cart.totalItems;
-    final String itemsLabel = itemCount == 1 ? 'item' : 'items';
-    final String formattedTotalPrice = _cart.totalPrice.toStringAsFixed(2);
-    return 'Cart: $itemCount $itemsLabel - \$$formattedTotalPrice';
-  }
-
   @override
   void initState() {
     super.initState();
