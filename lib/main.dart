@@ -40,6 +40,19 @@ class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 1;
   String? _confirmationMessage;
 
+  String get _cartSummaryText {
+    if (_cart.isEmpty) {
+      return 'Your cart is currently empty.';
+    }
+
+    final int itemCount = _cart.totalItems;
+    final String itemLabel = itemCount == 1 ? 'sandwich' : 'sandwiches';
+    final double totalPrice = _cart.totalPrice;
+    final String formattedTotal = totalPrice.toStringAsFixed(2);
+
+    return 'Cart: $itemCount $itemLabel · Total: ${String.fromCharCode(36)}$formattedTotal';
+  }
+
   @override
   void initState() {
     super.initState();
