@@ -40,6 +40,13 @@ class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 1;
   String? _confirmationMessage;
 
+  String get _cartSummaryText {
+    final int itemCount = _cart.totalItems;
+    final String itemsLabel = itemCount == 1 ? 'item' : 'items';
+    final String formattedTotalPrice = _cart.totalPrice.toStringAsFixed(2);
+    return 'Cart: $itemCount $itemsLabel - \$$formattedTotalPrice';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -262,6 +269,15 @@ class _OrderScreenState extends State<OrderScreen> {
                 icon: Icons.add_shopping_cart,
                 label: 'Add to Cart',
                 backgroundColor: Colors.green,
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  _cartSummaryText,
+                  style: normalText,
+                  textAlign: TextAlign.center,
+                ),
               ),
               const SizedBox(height: 20),
               if (_confirmationMessage != null)
