@@ -78,13 +78,6 @@ class _OrderScreenState extends State<OrderScreen> {
     }
   }
 
-  VoidCallback? _getAddToCartCallback() {
-    if (_quantity > 0) {
-      return _addToCart;
-    }
-    return null;
-  }
-
   List<DropdownMenuEntry<SandwichType>> _buildSandwichTypeEntries() {
     List<DropdownMenuEntry<SandwichType>> entries = [];
     for (SandwichType type in SandwichType.values) {
@@ -157,6 +150,14 @@ class _OrderScreenState extends State<OrderScreen> {
         _quantity--;
       });
     }
+  }
+
+  VoidCallback? _getAddToCartCallback() {
+    // only enabled if quantity is > 0
+    if (_quantity > 0) {
+      return _addToCart;
+    }
+    return null;
   }
 
   VoidCallback? _getDecreaseCallback() {
