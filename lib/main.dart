@@ -203,15 +203,15 @@ class _OrderScreenState extends State<OrderScreen> {
           style: heading1,
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(
-                height: 300,
-                child: Image.asset(
-                  _getCurrentImagePath(),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 180,
+              child: Image.asset(
+                _getCurrentImagePath(),
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return const Center(
@@ -223,7 +223,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               DropdownMenu<SandwichType>(
                 width: double.infinity,
                 label: const Text('Sandwich Type'),
@@ -232,7 +232,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 onSelected: _onSandwichTypeChanged,
                 dropdownMenuEntries: _buildSandwichTypeEntries(),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -244,7 +244,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   const Text('Footlong', style: normalText),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               DropdownMenu<BreadType>(
                 width: double.infinity,
                 label: const Text('Bread Type'),
@@ -253,7 +253,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 onSelected: _onBreadTypeChanged,
                 dropdownMenuEntries: _buildBreadTypeEntries(),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -269,7 +269,7 @@ class _OrderScreenState extends State<OrderScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
               StyledButton(
                 onPressed: _getAddToCartCallback(),
                 icon: Icons.add_shopping_cart,
@@ -277,25 +277,19 @@ class _OrderScreenState extends State<OrderScreen> {
                 backgroundColor: Colors.green,
               ),
               const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  _cartSummaryText,
+              Text(
+                _cartSummaryText,
+                style: normalText,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              if (_confirmationMessage != null)
+                Text(
+                  _confirmationMessage!,
                   style: normalText,
                   textAlign: TextAlign.center,
                 ),
-              ),
-              const SizedBox(height: 20),
-              if (_confirmationMessage != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
-                    _confirmationMessage!,
-                    style: normalText,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              if (_confirmationMessage != null) const SizedBox(height: 20),
+              if (_confirmationMessage != null) const SizedBox(height: 12),
             ],
           ),
         ),
