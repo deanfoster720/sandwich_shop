@@ -95,40 +95,64 @@ class _CartScreenState extends State<CartScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 20),
-              for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
+              if (widget.cart.items.isEmpty)
                 Column(
-                  children: [
-                    Text(entry.key.name, style: heading2),
+                  children: const [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 64,
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: 12),
                     Text(
-                      '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
-                      style: normalText,
+                      'Your cart is empty',
+                      style: heading2,
+                      textAlign: TextAlign.center,
                     ),
+                    SizedBox(height: 8),
                     Text(
-                      'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                      'Add sandwiches from the order screen to get started.',
                       style: normalText,
+                      textAlign: TextAlign.center,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () => _decreaseQuantity(entry.key),
-                          icon: const Icon(Icons.remove),
-                        ),
-                        Text('${entry.value}', style: heading2),
-                        IconButton(
-                          onPressed: () => _increaseQuantity(entry.key),
-                          icon: const Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                    IconButton(
-                      onPressed: () => _removeItem(entry.key),
-                      icon: const Icon(Icons.delete),
-                      color: Colors.red,
-                    ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                   ],
-                ),
+                )
+              else
+                for (MapEntry<Sandwich, int> entry in widget.cart.items.entries)
+                  Column(
+                    children: [
+                      Text(entry.key.name, style: heading2),
+                      Text(
+                        '${_getSizeText(entry.key.isFootlong)} on ${entry.key.breadType.name} bread',
+                        style: normalText,
+                      ),
+                      Text(
+                        'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
+                        style: normalText,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () => _decreaseQuantity(entry.key),
+                            icon: const Icon(Icons.remove),
+                          ),
+                          Text('${entry.value}', style: heading2),
+                          IconButton(
+                            onPressed: () => _increaseQuantity(entry.key),
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () => _removeItem(entry.key),
+                        icon: const Icon(Icons.delete),
+                        color: Colors.red,
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
               Text(
                 'Total: £${widget.cart.totalPrice.toStringAsFixed(2)}',
                 style: heading2,
