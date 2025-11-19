@@ -41,18 +41,36 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {
       widget.cart.add(sandwich, quantity: 1);
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Increased ${sandwich.name} quantity'),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   void _decreaseQuantity(Sandwich sandwich) {
     setState(() {
       widget.cart.remove(sandwich, quantity: 1);
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Decreased ${sandwich.name} quantity'),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   void _removeItem(Sandwich sandwich) {
     setState(() {
       widget.cart.remove(sandwich, quantity: widget.cart.getQuantity(sandwich));
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Removed ${sandwich.name} from cart'),
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
