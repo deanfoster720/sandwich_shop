@@ -86,3 +86,25 @@ The Cart Modification feature enables users of the Sandwich Shop Flutter app to 
 - Widget tests shall be implemented for the Profile screen.
 - Tests shall verify that all required input fields (name, email, phone number, delivery address) are present and functional.
 - Tests shall verify that navigation from the order screen to the Profile screen works as intended.
+
+---
+
+## 6. Responsive Navigation Drawer Requirements
+
+### 6.1. Drawer and Navigation Elements
+
+- The app shall expose a shared navigation drawer from every primary screen (order, cart, about, profile) so that users can easily jump between sections.
+- The drawer shall contain navigation options for at least the order screen, the about page, and the profile page, each with descriptive labels and icons.
+- Activating any drawer option shall navigate to the selected destination using the app's existing routing so that the navigation stack is not duplicated.
+- Shared layout elements (AppBar, Drawer, NavigationRail) shall be implemented in a reusable widget to minimise duplicate code across screens.
+
+### 6.2. Responsive Navigation
+
+- When the app width is greater than a defined breakpoint, the drawer shall be replaced by a persistent navigation rail (or equivalent wider-screen layout) so the navigation adapts to large displays.
+- The navigation rail shall highlight the current destination and provide the same destinations as the drawer.
+- On smaller screens, the drawer shall remain hidden until the user taps the menu icon in the AppBar.
+
+### 6.3. Testing
+
+- Widget tests shall cover opening the navigation drawer, tapping navigation options, and verifying that the user lands on the correct destination screen.
+- Widget tests shall cover the responsive navigation behaviour by asserting that the navigation rail is shown at larger screen sizes.

@@ -14,17 +14,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sandwich Shop App',
-      home: const OrderScreen(maxQuantity: 5),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/about':
-            return MaterialPageRoute(builder: (_) => const AboutScreen());
-          case '/profile':
-            return MaterialPageRoute(builder: (_) => const ProfileScreen());
-          default:
-            return MaterialPageRoute(
-                builder: (_) => const OrderScreen(maxQuantity: 5));
-        }
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const OrderScreen(maxQuantity: 5),
+        '/about': (_) => const AboutScreen(),
+        '/profile': (_) => const ProfileScreen(),
       },
     );
   }

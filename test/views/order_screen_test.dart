@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:sandwich_shop/views/about_screen.dart';
 import 'package:sandwich_shop/views/order_screen.dart';
 import 'package:sandwich_shop/views/profile_screen.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
@@ -336,6 +337,58 @@ void main() {
       final ElevatedButton button =
           tester.widget<ElevatedButton>(elevatedButtonFinder);
       expect(button.enabled, isFalse);
+    });
+  });
+
+  group('OrderScreen - Navigation Drawer', () {
+    testWidgets('shows drawer destinations when opened',
+        (WidgetTester tester) async {
+      const MaterialApp app = MaterialApp(home: OrderScreen());
+      await tester.pumpWidget(app);
+
+      await tester.tap(find.byTooltip('Open navigation menu'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Order sandwiches'), findsOneWidget);
+      expect(find.text('About'), findsOneWidget);
+      expect(find.text('Profile'), findsOneWidget);
+    });
+
+    testWidgets('navigates to About screen from drawer',
+        (WidgetTester tester) async {
+      final MaterialApp app = MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (_) => const OrderScreen(),
+          '/about': (_) => const AboutScreen(),
+          '/profile': (_) => const ProfileScreen(),
+        },
+      );
+
+      await tester.pumpWidget(app);
+
+      await tester.tap(find.byTooltip('Open navigation menu'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('About'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('About Us'), findsOneWidget);
+      expect(find.text('Welcome to Sandwich Shop!'), findsOneWidget);
+    });
+
+    testWidgets('shows navigation rail on wide layouts',
+        (WidgetTester tester) async {
+      tester.binding.window.physicalSizeTestValue = const Size(1400, 900);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
+
+      const MaterialApp app = MaterialApp(home: OrderScreen());
+      await tester.pumpWidget(app);
+
+      expect(find.byType(NavigationRail), findsOneWidget);
+
+      tester.binding.window.clearPhysicalSizeTestValue();
+      tester.binding.window.clearDevicePixelRatioTestValue();
     });
   });
 }
