@@ -107,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 4),
-                  Text(
+                  const Text(
                     'Customize how we contact you about your favourite sandwiches.',
                     style: normalText,
                     textAlign: TextAlign.center,
