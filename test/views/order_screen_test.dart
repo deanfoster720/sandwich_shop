@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sandwich_shop/views/order_screen.dart';
+import 'package:sandwich_shop/views/profile_screen.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 
 void dummyFunction() {}
@@ -266,6 +267,25 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Cart View'), findsOneWidget);
+    });
+
+    testWidgets('navigates to profile screen when Edit Profile is tapped',
+        (WidgetTester tester) async {
+      const OrderScreen orderScreen = OrderScreen();
+      const MaterialApp app = MaterialApp(home: orderScreen);
+      await tester.pumpWidget(app);
+
+      final Finder editProfileButtonFinder =
+          find.widgetWithText(StyledButton, 'Edit Profile');
+      expect(editProfileButtonFinder, findsOneWidget);
+
+      await tester.ensureVisible(editProfileButtonFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(editProfileButtonFinder);
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ProfileScreen), findsOneWidget);
+      expect(find.text('Name'), findsWidgets);
     });
   });
 
