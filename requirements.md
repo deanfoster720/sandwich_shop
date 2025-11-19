@@ -61,3 +61,28 @@ The Cart Modification feature enables users of the Sandwich Shop Flutter app to 
 4. Ensure the total price and UI update immediately after any change.
 5. Provide user feedback (snackbar) for remove and update actions.
 6. Handle empty cart states with a clear message.
+
+---
+
+## 5. Profile Screen Feature Requirements
+
+### 5.1. Profile Screen
+
+- The app shall provide a Profile screen where the user can enter and/or view their personal details, including:
+	- Name
+	- Email
+	- Phone number
+	- Delivery address
+- The Profile screen shall allow users to edit these details within the app session.
+- No real authentication or persistent data storage is required; user details are only stored in memory for the duration of the app session.
+
+### 5.2. Navigation
+
+- The order screen shall include a link or button at the bottom of the page that navigates to the Profile screen.
+- Tapping this link or button shall display the Profile screen, allowing the user to view or edit their details.
+
+### 5.3. Testing
+
+- Widget tests shall be implemented for the Profile screen.
+- Tests shall verify that all required input fields (name, email, phone number, delivery address) are present and functional.
+- Tests shall verify that navigation from the order screen to the Profile screen works as intended.
