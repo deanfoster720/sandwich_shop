@@ -74,24 +74,26 @@ class AppScaffold extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primaryContainer,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    height: 64,
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Sandwich Shop',
-                    style: heading1,
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'Navigate through the app',
-                    style: normalText,
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 64,
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Sandwich Shop',
+                      style: heading1,
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Navigate through the app',
+                      style: normalText,
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
