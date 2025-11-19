@@ -49,6 +49,12 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
+  void _removeItem(Sandwich sandwich) {
+    setState(() {
+      widget.cart.remove(sandwich, quantity: widget.cart.getQuantity(sandwich));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +102,11 @@ class _CartScreenState extends State<CartScreen> {
                           icon: const Icon(Icons.add),
                         ),
                       ],
+                    ),
+                    IconButton(
+                      onPressed: () => _removeItem(entry.key),
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
                     ),
                     const SizedBox(height: 20),
                   ],
