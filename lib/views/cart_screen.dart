@@ -37,6 +37,18 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  void _increaseQuantity(Sandwich sandwich) {
+    setState(() {
+      widget.cart.add(sandwich, quantity: 1);
+    });
+  }
+
+  void _decreaseQuantity(Sandwich sandwich) {
+    setState(() {
+      widget.cart.remove(sandwich, quantity: 1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +82,20 @@ class _CartScreenState extends State<CartScreen> {
                     Text(
                       'Qty: ${entry.value} - £${_getItemPrice(entry.key, entry.value).toStringAsFixed(2)}',
                       style: normalText,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          onPressed: () => _decreaseQuantity(entry.key),
+                          icon: const Icon(Icons.remove),
+                        ),
+                        Text('${entry.value}', style: heading2),
+                        IconButton(
+                          onPressed: () => _increaseQuantity(entry.key),
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 20),
                   ],
