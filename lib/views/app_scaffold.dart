@@ -118,65 +118,24 @@ class AppScaffold extends StatelessWidget {
     );
   }
 
-  Widget _buildNavigationRail(BuildContext context, bool extended) {
-    final int selectedIndex = currentDestination != null
-        ? AppDestination.values.indexOf(currentDestination!)
-        : 0;
-
-    return NavigationRail(
-      selectedIndex: selectedIndex,
-      extended: extended,
-      labelType:
-          extended ? NavigationRailLabelType.none : NavigationRailLabelType.all,
-      onDestinationSelected: (index) {
-        final destination = AppDestination.values[index];
-        _navigateTo(context, destination);
-      },
-      destinations: [
-        for (final destination in AppDestination.values)
-          NavigationRailDestination(
-            icon: Icon(destination.icon),
-            label: Text(destination.label),
-          ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final bool showRail = constraints.maxWidth >= 900;
-        final bool extendRail = constraints.maxWidth >= 1200;
-
-        return Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  height: 40,
-                ),
-                const SizedBox(width: 12),
-                Text(title, style: heading1),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/images/logo.png',
+              height: 40,
             ),
-          ),
-          drawer: showRail ? null : _buildDrawer(context),
-          body: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (showRail)
-                _buildNavigationRail(
-                  context,
-                  extendRail,
-                ),
-              Expanded(child: body),
-            ],
-          ),
-          floatingActionButton: floatingActionButton,
-        );
-      },
+            const SizedBox(width: 12),
+            Text(title, style: heading1),
+          ],
+        ),
+      ),
+      drawer: _buildDrawer(context),
+      body: body,
+      floatingActionButton: floatingActionButton,
     );
   }
 }
