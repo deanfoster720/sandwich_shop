@@ -72,4 +72,38 @@ void main() {
 
     expect(find.text(expectedMessage), findsOneWidget);
   });
+
+  testWidgets('Cart summary updates item count and total after additions',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: OrderScreen(maxQuantity: 5),
+      ),
+    );
+
+    // Initially the cart is empty, so the placeholder text should be visible.
+    expect(
+      find.text('Your cart is currently empty.'),
+      findsOneWidget,
+    );
+
+    final Finder addButtonFinder =
+        find.widgetWithText(ElevatedButton, 'Add to Cart');
+
+    // Add the default sandwich once and ensure the summary reflects 1 item.
+    await tester.tap(addButtonFinder);
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Cart: 1 sandwich · Total: £11.00'),
+      findsOneWidget,
+    );
+
+    // Add the same sandwich again, verifying the count and total double.
+    await tester.tap(addButtonFinder);
+    await tester.pumpAndSettle();
+    expect(
+      find.text('Cart: 2 sandwiches · Total: £22.00'),
+      findsOneWidget,
+    );
+  });
 }
