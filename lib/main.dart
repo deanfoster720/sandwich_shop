@@ -212,86 +212,85 @@ class _OrderScreenState extends State<OrderScreen> {
               height: 180,
               child: Image.asset(
                 _getCurrentImagePath(),
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Center(
-                      child: Text(
-                        'Image not found',
-                        style: normalText,
-                      ),
-                    );
-                  },
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(
+                    child: Text(
+                      'Image not found',
+                      style: normalText,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 12),
+            DropdownMenu<SandwichType>(
+              width: double.infinity,
+              label: const Text('Sandwich Type'),
+              textStyle: normalText,
+              initialSelection: _selectedSandwichType,
+              onSelected: _onSandwichTypeChanged,
+              dropdownMenuEntries: _buildSandwichTypeEntries(),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Six-inch', style: normalText),
+                Switch(
+                  value: _isFootlong,
+                  onChanged: _onSizeChanged,
                 ),
-              ),
-              const SizedBox(height: 12),
-              DropdownMenu<SandwichType>(
-                width: double.infinity,
-                label: const Text('Sandwich Type'),
-                textStyle: normalText,
-                initialSelection: _selectedSandwichType,
-                onSelected: _onSandwichTypeChanged,
-                dropdownMenuEntries: _buildSandwichTypeEntries(),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Six-inch', style: normalText),
-                  Switch(
-                    value: _isFootlong,
-                    onChanged: _onSizeChanged,
-                  ),
-                  const Text('Footlong', style: normalText),
-                ],
-              ),
-              const SizedBox(height: 12),
-              DropdownMenu<BreadType>(
-                width: double.infinity,
-                label: const Text('Bread Type'),
-                textStyle: normalText,
-                initialSelection: _selectedBreadType,
-                onSelected: _onBreadTypeChanged,
-                dropdownMenuEntries: _buildBreadTypeEntries(),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Quantity: ', style: normalText),
-                  IconButton(
-                    onPressed: _getDecreaseCallback(),
-                    icon: const Icon(Icons.remove),
-                  ),
-                  Text('$_quantity', style: heading2),
-                  IconButton(
-                    onPressed: _getIncreaseCallback(),
-                    icon: const Icon(Icons.add),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              StyledButton(
-                onPressed: _getAddToCartCallback(),
-                icon: Icons.add_shopping_cart,
-                label: 'Add to Cart',
-                backgroundColor: Colors.green,
-              ),
-              const SizedBox(height: 12),
+                const Text('Footlong', style: normalText),
+              ],
+            ),
+            const SizedBox(height: 12),
+            DropdownMenu<BreadType>(
+              width: double.infinity,
+              label: const Text('Bread Type'),
+              textStyle: normalText,
+              initialSelection: _selectedBreadType,
+              onSelected: _onBreadTypeChanged,
+              dropdownMenuEntries: _buildBreadTypeEntries(),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Quantity: ', style: normalText),
+                IconButton(
+                  onPressed: _getDecreaseCallback(),
+                  icon: const Icon(Icons.remove),
+                ),
+                Text('$_quantity', style: heading2),
+                IconButton(
+                  onPressed: _getIncreaseCallback(),
+                  icon: const Icon(Icons.add),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            StyledButton(
+              onPressed: _getAddToCartCallback(),
+              icon: Icons.add_shopping_cart,
+              label: 'Add to Cart',
+              backgroundColor: Colors.green,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              _cartSummaryText,
+              style: normalText,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            if (_confirmationMessage != null)
               Text(
-                _cartSummaryText,
+                _confirmationMessage!,
                 style: normalText,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12),
-              if (_confirmationMessage != null)
-                Text(
-                  _confirmationMessage!,
-                  style: normalText,
-                  textAlign: TextAlign.center,
-                ),
-              if (_confirmationMessage != null) const SizedBox(height: 12),
-            ],
-          ),
+            if (_confirmationMessage != null) const SizedBox(height: 12),
+          ],
         ),
       ),
     );
