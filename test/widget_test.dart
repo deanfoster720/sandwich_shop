@@ -22,6 +22,7 @@ void main() {
 
     // Tap the "-" icon to reduce quantity to 0
     final Finder decreaseButtonFinder = find.byIcon(Icons.remove);
+    await tester.ensureVisible(decreaseButtonFinder);
     await tester.tap(decreaseButtonFinder);
     await tester.pumpAndSettle();
 
@@ -41,6 +42,9 @@ void main() {
     );
 
     final Finder increaseButtonFinder = find.byIcon(Icons.add);
+
+    // Ensure the increase button is visible before tapping
+    await tester.ensureVisible(increaseButtonFinder);
 
     // Tap "+" more times than maxQuantity
     for (int i = 0; i < 10; i++) {
@@ -67,6 +71,7 @@ void main() {
 
     final Finder addButtonFinder =
         find.widgetWithText(ElevatedButton, 'Add to Cart');
+    await tester.ensureVisible(addButtonFinder);
     await tester.tap(addButtonFinder);
     await tester.pumpAndSettle();
 
@@ -90,7 +95,8 @@ void main() {
     final Finder addButtonFinder =
         find.widgetWithText(ElevatedButton, 'Add to Cart');
 
-    // Add the default sandwich once and ensure the summary reflects 1 item.
+    // Ensure the add button is visible and add the default sandwich once
+    await tester.ensureVisible(addButtonFinder);
     await tester.tap(addButtonFinder);
     await tester.pumpAndSettle();
     expect(
@@ -99,6 +105,7 @@ void main() {
     );
 
     // Add the same sandwich again, verifying the count and total double.
+    await tester.ensureVisible(addButtonFinder);
     await tester.tap(addButtonFinder);
     await tester.pumpAndSettle();
     expect(
