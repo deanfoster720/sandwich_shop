@@ -38,8 +38,9 @@ class _OrderScreenState extends State<OrderScreen> {
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
   int _quantity = 1;
-  String? _confirmationMessage;
+  String? _confirmationMessage; // Exercise 1
 
+  // Exercise 2
   String get _cartSummaryText {
     if (_cart.isEmpty) {
       return 'Your cart is currently empty.';
@@ -81,6 +82,7 @@ class _OrderScreenState extends State<OrderScreen> {
       } else {
         sizeText = 'six-inch';
       }
+      // Exercise 1
       String confirmationMessage =
           'Added $_quantity $sizeText ${sandwich.name} sandwich(es) on ${_selectedBreadType.name} bread to cart';
 
@@ -276,12 +278,14 @@ class _OrderScreenState extends State<OrderScreen> {
               label: 'Add to Cart',
               backgroundColor: Colors.green,
             ),
+            // Exercise 2
             const SizedBox(height: 12),
             Text(
               _cartSummaryText,
               style: normalText,
               textAlign: TextAlign.center,
             ),
+            // Exercise 1
             const SizedBox(height: 12),
             if (_confirmationMessage != null)
               Text(

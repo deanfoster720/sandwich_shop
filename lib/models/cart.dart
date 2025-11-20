@@ -53,6 +53,7 @@ class Cart {
     _items.clear();
   }
 
+  // Exercise 2
   int get totalItems {
     int total = 0;
     for (final item in _items) {
