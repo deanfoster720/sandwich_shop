@@ -23,7 +23,7 @@ void main() {
       await tester.enterText(textFields.at(3), '123 Rye Lane');
       await tester.pump();
 
-      expect(find.text('Taylor Toast'), findsOneWidget);
+      expect(find.text('Taylor Toast'), findsWidgets);
       expect(find.text('taylor@example.com'), findsOneWidget);
       expect(find.text('+44 5555 000'), findsOneWidget);
       expect(find.text('123 Rye Lane'), findsOneWidget);

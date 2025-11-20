@@ -120,22 +120,56 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              height: 40,
-            ),
-            const SizedBox(width: 12),
-            Text(title, style: heading1),
-          ],
-        ),
-      ),
-      drawer: _buildDrawer(context),
-      body: body,
-      floatingActionButton: floatingActionButton,
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      final bool useRail = constraints.maxWidth >= 1000;
+
+      Widget appBarTitle = Row(
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            height: 40,
+          ),
+          const SizedBox(width: 12),
+          Text(title, style: heading1),
+        ],
+      );
+
+      if (useRail) {
+        return Scaffold(
+          appBar: AppBar(title: appBarTitle),
+          body: Row(
+            children: [
+              NavigationRail(
+                selectedIndex:
+                    currentDestination != null ? currentDestination!.index : 0,
+                onDestinationSelected: (int index) {
+                  final AppDestination destination =
+                      AppDestination.values[index];
+                  _navigateTo(context, destination);
+                },
+                labelType: NavigationRailLabelType.all,
+                destinations: [
+                  for (final destination in AppDestination.values)
+                    NavigationRailDestination(
+                      icon: Icon(destination.icon),
+                      label: Text(destination.label),
+                    ),
+                ],
+              ),
+              const VerticalDivider(width: 1),
+              Expanded(child: body),
+            ],
+          ),
+          floatingActionButton: floatingActionButton,
+        );
+      }
+
+      return Scaffold(
+        appBar: AppBar(title: appBarTitle),
+        drawer: _buildDrawer(context),
+        body: body,
+        floatingActionButton: floatingActionButton,
+      );
+    });
   }
 }
