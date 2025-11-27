@@ -8,7 +8,7 @@ import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+  const CartScreen({super.key, required Cart cart});
 
   @override
   State<CartScreen> createState() {
@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
             child: Image.asset('assets/images/logo.png'),
           ),
         ),
-        title: const Text(
+        title: Text(
           'Cart View',
           style: heading1,
         ),
@@ -145,7 +145,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   const SizedBox(height: 20),
                   if (cart.items.isEmpty)
-                    const Text(
+                    Text(
                       'Your cart is empty.',
                       style: heading2,
                       textAlign: TextAlign.center,
