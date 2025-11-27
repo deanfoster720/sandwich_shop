@@ -8,7 +8,7 @@ import 'package:sandwich_shop/repositories/pricing_repository.dart';
 import 'package:sandwich_shop/views/checkout_screen.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({super.key, required Cart cart});
+  const CartScreen({super.key});
 
   @override
   State<CartScreen> createState() {
