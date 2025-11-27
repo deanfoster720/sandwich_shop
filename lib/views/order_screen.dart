@@ -5,6 +5,7 @@ import 'package:sandwich_shop/models/cart.dart';
 import 'package:sandwich_shop/models/sandwich.dart';
 import 'package:sandwich_shop/views/profile_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:sandwich_shop/views/settings_screen.dart';
 
 class OrderScreen extends StatefulWidget {
   final int maxQuantity;
@@ -110,6 +111,15 @@ class _OrderScreenState extends State<OrderScreen> {
       context,
       MaterialPageRoute<void>(
         builder: (BuildContext context) => const CartScreen(),
+      ),
+    );
+  }
+
+  void _navigateToSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => const SettingsScreen(),
       ),
     );
   }
@@ -290,6 +300,12 @@ class _OrderScreenState extends State<OrderScreen> {
                 },
               ),
               const SizedBox(height: 20),
+              StyledButton(
+                onPressed: _navigateToSettings,
+                icon: Icons.settings,
+                label: 'Settings',
+                backgroundColor: Colors.grey,
+              ),
             ],
           ),
         ),
