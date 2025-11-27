@@ -11,7 +11,7 @@ void main() {
     testWidgets('displays empty cart message when cart is empty',
         (WidgetTester tester) async {
       final Cart emptyCart = Cart();
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: emptyCart,
@@ -36,7 +36,7 @@ void main() {
       );
       cart.add(sandwich, quantity: 2);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -70,7 +70,7 @@ void main() {
       cart.add(sandwich1, quantity: 1);
       cart.add(sandwich2, quantity: 3);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -99,7 +99,7 @@ void main() {
       );
       cart.add(sandwich, quantity: 1);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -115,7 +115,7 @@ void main() {
     testWidgets('hides checkout button when cart is empty',
         (WidgetTester tester) async {
       final Cart emptyCart = Cart();
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: emptyCart,
@@ -138,7 +138,7 @@ void main() {
       );
       cart.add(sandwich, quantity: 1);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -168,7 +168,7 @@ void main() {
       );
       cart.add(sandwich, quantity: 2);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -198,7 +198,7 @@ void main() {
       );
       cart.add(sandwich, quantity: 2);
 
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
@@ -221,7 +221,7 @@ void main() {
 
     testWidgets('back button navigates back', (WidgetTester tester) async {
       final Cart cart = Cart();
-      final CartScreen cartViewScreen = const CartScreen();
+      const CartScreen cartViewScreen = CartScreen();
       final MaterialApp app = MaterialApp(
         home: ChangeNotifierProvider<Cart>.value(
           value: cart,
