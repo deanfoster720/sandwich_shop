@@ -68,6 +68,31 @@ flutter pub get
 flutter run
 ```
 
+## Run integration tests
+
+To verify that the entire end-to-end user flow works correctly, you can run the integration tests.
+These tests cover key user journeys including:
+
+- Adding a sandwich to the cart and verifying it appears
+- Changing sandwich types and adding to cart
+- Modifying quantity before adding to cart
+- Completing a full checkout flow
+- Adding multiple different sandwiches and verifying both appear
+- Adding an item and then removing it from the cart
+- Incrementing quantity significantly and verifying the total price
+
+Run the integration tests with:
+
+```bash
+flutter test integration_test/app_test.dart
+```
+
+Or on the web platform:
+
+```bash
+flutter test integration_test/app_test.dart --platform chrome
+```
+
 ## Get support
 
 Use [the dedicated Discord channel](https://discord.com/channels/760155974467059762/1370633732779933806)
