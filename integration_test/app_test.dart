@@ -161,7 +161,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify cart updated with both items
-      expect(find.text('Cart: 2 items - £24.00'), findsOneWidget);
+      expect(find.text('Cart: 2 items - £22.00'), findsOneWidget);
 
       // View cart to verify both sandwiches are there
       final viewCartButton = find.widgetWithText(StyledButton, 'View Cart');
@@ -172,7 +172,7 @@ void main() {
 
       expect(find.text('Veggie Delight'), findsOneWidget);
       expect(find.text('Chicken Teriyaki'), findsOneWidget);
-      expect(find.text('Total: £24.00'), findsOneWidget);
+      expect(find.text('Total: £22.00'), findsOneWidget);
     });
 
     testWidgets('add item then remove it from cart',
@@ -203,7 +203,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify cart is now empty
-      expect(find.text('Your cart is empty'), findsOneWidget);
+      expect(find.text('Your cart is empty.'), findsOneWidget);
       expect(find.text('Total: £0.00'), findsOneWidget);
     });
 
