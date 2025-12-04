@@ -67,7 +67,7 @@ the app in your web browser:
 flutter pub get
 flutter run
 ```
-
+'''Exercise 2
 ## Run integration tests
 
 To verify that the entire end-to-end user flow works correctly, you can run the integration tests.
