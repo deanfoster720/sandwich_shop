@@ -135,6 +135,118 @@ void main() {
       expect(find.text('Cart: 0 items - £0.00'), findsOneWidget);
     });
 
+    testWidgets('add two different sandwiches and verify both in cart',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // Add first sandwich (Veggie Delight)
+      final addToCartButton = find.widgetWithText(StyledButton, 'Add to Cart');
+      await tester.ensureVisible(addToCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(addToCartButton);
+      await tester.pumpAndSettle();
+
+      // Change to Chicken Teriyaki
+      final sandwichDropdown = find.byType(DropdownMenu<SandwichType>);
+      await tester.tap(sandwichDropdown);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Chicken Teriyaki').last);
+      await tester.pumpAndSettle();
+
+      // Add second sandwich
+      await tester.ensureVisible(addToCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(addToCartButton);
+      await tester.pumpAndSettle();
+
+      // Verify cart updated with both items
+      expect(find.text('Cart: 2 items - £24.00'), findsOneWidget);
+
+      // View cart to verify both sandwiches are there
+      final viewCartButton = find.widgetWithText(StyledButton, 'View Cart');
+      await tester.ensureVisible(viewCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(viewCartButton);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Veggie Delight'), findsOneWidget);
+      expect(find.text('Chicken Teriyaki'), findsOneWidget);
+      expect(find.text('Total: £24.00'), findsOneWidget);
+    });
+
+    testWidgets('add item then remove it from cart',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      // Add a sandwich to cart
+      final addToCartButton = find.widgetWithText(StyledButton, 'Add to Cart');
+      await tester.ensureVisible(addToCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(addToCartButton);
+      await tester.pumpAndSettle();
+
+      // Verify item is in cart
+      expect(find.text('Cart: 1 items - £11.00'), findsOneWidget);
+
+      // Navigate to cart
+      final viewCartButton = find.widgetWithText(StyledButton, 'View Cart');
+      await tester.ensureVisible(viewCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(viewCartButton);
+      await tester.pumpAndSettle();
+
+      // Remove the item
+      final removeButton = find.byIcon(Icons.delete);
+      await tester.tap(removeButton);
+      await tester.pumpAndSettle();
+
+      // Verify cart is now empty
+      expect(find.text('Your cart is empty'), findsOneWidget);
+      expect(find.text('Total: £0.00'), findsOneWidget);
+    });
+
+    testWidgets('increment quantity significantly and verify total price',
+        (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      final quantitySection = find.text('Quantity: ');
+      expect(quantitySection, findsOneWidget);
+
+      // Get the quantity add button (first + icon)
+      final addButtons = find.byIcon(Icons.add);
+      final quantityAddButton = addButtons.first;
+
+      // Increment quantity to 5 (max)
+      for (int i = 0; i < 4; i++) {
+        await tester.tap(quantityAddButton);
+        await tester.pumpAndSettle();
+      }
+
+      expect(find.text('5'), findsOneWidget);
+
+      // Add to cart with quantity 5
+      final addToCartButton = find.widgetWithText(StyledButton, 'Add to Cart');
+      await tester.ensureVisible(addToCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(addToCartButton);
+      await tester.pumpAndSettle();
+
+      // Verify correct total (5 × £11.00 = £55.00)
+      expect(find.text('Cart: 5 items - £55.00'), findsOneWidget);
+
+      // Navigate to cart to double-check total
+      final viewCartButton = find.widgetWithText(StyledButton, 'View Cart');
+      await tester.ensureVisible(viewCartButton);
+      await tester.pumpAndSettle();
+      await tester.tap(viewCartButton);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Total: £55.00'), findsOneWidget);
+    });
+
     // Feel free to add more tests (e.g., to check saved orders, etc.)
   });
 }
