@@ -93,6 +93,43 @@ Or on the web platform:
 flutter test integration_test/app_test.dart --platform chrome
 ```
 
+## Release Notes
+
+### Version 1.0.0
+
+This is the initial release of the Sandwich Shop app, a feature-complete Flutter application for ordering sandwiches online.
+
+#### Features
+
+- **Order Management**: Browse and customize sandwich orders with options for sandwich type, size (footlong or six-inch), and bread type
+- **Shopping Cart**: Add multiple items to cart, adjust quantities, and remove items
+- **Checkout Flow**: Complete checkout process with order summary and payment confirmation
+- **Order History**: View past orders and reorder previously saved items
+- **User Profile**: Save and manage customer profile information
+- **Settings**: Customize app settings including font size
+- **Responsive Design**: Works seamlessly on web browsers and mobile platforms (iOS and Android)
+
+#### What's New
+
+- Initial release with core sandwich ordering functionality
+- Comprehensive integration test suite covering 7 end-to-end user journeys
+- Full checkout and payment processing flow
+- Order history tracking and saved orders feature
+- User-friendly UI with consistent styling and navigation
+
+#### Testing
+
+- All 7 integration tests passing ✓
+- Full end-to-end coverage of critical user flows
+- Tested on web, Android, and iOS platforms
+
+#### Known Limitations
+
+- Currently optimized for web browser experience
+- Kotlin version warning on Android (upgrade recommended for future builds)
+
+---
+
 ## Get support
 
 Use [the dedicated Discord channel](https://discord.com/channels/760155974467059762/1370633732779933806)
